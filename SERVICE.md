@@ -22,9 +22,9 @@ Business / Bookings & Payments
 - Design: blue calendar + green booked check + blue card = book + pay. High contrast at 32px, reads instantly in directory.
 
 ## Example prompts (paste into submit)
-1. "Find me a cleaner Friday under $150 and book it"
-2. "Quote a 30-min consult and pay deposit"
-3. "Cancel my booking bk_1"
+1. "Find me a gel manicure tomorrow under $70 and book it"
+2. "Find a skin fade Saturday morning and pay deposit"
+3. "Quote a signature facial, hold Friday 1pm, then cancel it"
 
 ## Scopes
 Reads (no charge): services, availability, getBooking
