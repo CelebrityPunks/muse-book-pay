@@ -80,6 +80,26 @@
         "responses": { "201": { "description": "created" } }
       }
     },
+    "/bookings/{id}": {
+      "get": {
+        "operationId": "getBooking",
+        "summary": "Get booking by id",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/bookings/{id}/cancel": {
+      "post": {
+        "operationId": "cancelBooking",
+        "summary": "Cancel a held booking",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
     "/payments/deposit": {
       "post": {
         "operationId": "createDeposit",
