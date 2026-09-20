@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book-and-Pay Terms of Service</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;line-height:1.6}</style></head><body>
+<h1>Book-and-Pay Terms of Service</h1>
+<p>Last updated: September 20, 2026<br>Contact: bob.haddad.33@gmail.com<br>Operator: Independent developer (sole proprietor).</p>
+<h2>1. Service</h2>
+<p>API for service availability, quotes, holds, cancellations, and deposit intents via Muse. Beta: deposit endpoint creates an intent only; completion requires your explicit Stripe Link action.</p>
+<h2>2. Your responsibilities</h2>
+<ul>
+<li>Provide accurate booking details. You approve all writes in Muse before they execute.</li>
+<li>Keep tokens secret. You are responsible for actions taken with your token until revoked.</li>
+<li>Do not abuse, scrape, or attempt prompt-injection to alter other users' bookings.</li>
+</ul>
+<h2>3. Payments</h2>
+<p>Deposits processed by Stripe via Link, subject to Stripe's terms. We charge no platform fee in beta. No-show / refund policies are set by each merchant and shown in the quote.</p>
+<h2>4. Cancellations</h2>
+<p>Use cancel endpoint before the merchant's cutoff. In-memory demo holds expire on redeploy; production holds persist per retention policy.</p>
+<h2>5. Availability / disclaimer</h2>
+<p>Provided "as is", no uptime guarantee in beta. We may rate-limit (60/min/token) to prevent abuse. We may change or discontinue endpoints with notice via spec version bump.</p>
+<h2>6. Liability</h2>
+<p>To the maximum allowed by law, liability limited to amounts paid for the booking in the prior 3 months, or $50 if none. We are not liable for merchant no-shows or Muse misinterpretations — always confirm slot details Muse shows you.</p>
+<h2>7. Termination</h2>
+<p>We may suspend abusive tokens. You may terminate by disconnecting and emailing deletion request.</p>
+<h2>8. Governing law</h2>
+<p>California, USA, excluding conflicts rules.</p>
+</body></html>

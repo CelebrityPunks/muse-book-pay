@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book-and-Pay Privacy Policy</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;line-height:1.6}</style></head><body>
+<h1>Book-and-Pay Privacy Policy</h1>
+<p>Last updated: September 20, 2026<br>Contact: bob.haddad.33@gmail.com<br>Operator: Independent developer (sole proprietor), operating as Book-and-Pay.</p>
+<h2>What this service does</h2>
+<p>Book-and-Pay is a Muse connector API for booking services and creating deposit intents. Muse calls our API on your behalf when you ask to check availability, get a quote, hold a slot, cancel, or start a deposit.</p>
+<h2>Data we process</h2>
+<ul>
+<li>Booking details you provide: service ID, date/slot, name, quote ID</li>
+<li>Payment intent metadata: booking ID, amount, currency (processed via Stripe Link; we never see full card numbers)</li>
+<li>Technical logs: timestamps, request IDs, error logs, retained 30 days</li>
+</ul>
+<h2>What we don't do</h2>
+<ul>
+<li>No sale of personal data. No ads. No profiling.</li>
+<li>No access to your Gmail, Calendar, or Muse conversations — Muse only sends the fields needed for the booking call.</li>
+<li>No charge is made in beta unless you complete Stripe Link checkout explicitly.</li>
+</ul>
+<h2>Legal basis / consent</h2>
+<p>We process data to perform the booking you requested via Muse. Connecting the service and approving the action is your consent. You can withdraw by disconnecting the connector and emailing us to delete records.</p>
+<h2>Retention</h2>
+<p>Bookings kept 12 months for receipts/disputes, then deleted. Logs 30 days. Email requests for deletion: bob.haddad.33@gmail.com, handled within 30 days.</p>
+<h2>Revocation</h2>
+<p>Revoke your API token or disconnect in Muse Settings &gt; Connectors at any time. Revoked tokens stop working immediately.</p>
+<h2>Subprocessors</h2>
+<p>Railway (hosting), Stripe (payments via Link), GitHub (spec hosting). Data stored in the US.</p>
+<h2>Security</h2>
+<p>HTTPS only, Bearer tokens via Muse Secure Credentials Store, idempotent writes, least-privilege scopes (reads vs writes), input validation.</p>
+<h2>Children</h2>
+<p>Not intended for under 13. Do not use for children's bookings.</p>
+<h2>Changes</h2>
+<p>We will update this page and bump the date for material changes.</p>
+</body></html>
