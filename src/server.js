@@ -110,4 +110,4 @@ app.post('/v1/bookings/:id/cancel', auth, (req, res) => {
   res.json(found);
 });
 
-app.listen(PORT, () => console.log(`muse-book-pay on :${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`muse-book-pay on :${PORT}`));
