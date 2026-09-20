@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "description": "Universal booking + deposit API for Muse connectors. Agent calls availability -> quote -> book (idempotent) -> deposit via Stripe Link."
   },
-  "servers": [{ "url": "https://YOUR-HOST/v1" }],
+  "servers": [{ "url": "https://muse-book-pay-production.up.railway.app/v1" }],
   "components": {
     "securitySchemes": {
       "bearerAuth": { "type": "http", "scheme": "bearer" }
