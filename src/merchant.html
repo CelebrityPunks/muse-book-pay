@@ -1,34 +1,68 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Latch — Get bookable via Muse</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 20px;line-height:1.6}input,button{font-size:16px;padding:10px;margin:4px 0;width:100%;box-sizing:border-box}.card{border:1px solid #ddd;border-radius:12px;padding:20px;margin:16px 0}.badge{display:inline-block;background:#111;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px}.muted{color:#666;font-size:14px}</style></head><body>
-<h1>Latch — Get bookable via Muse</h1>
-<p><span class="badge">Reviewed Muse Connector (pending)</span></p>
-<p>Customers book you by asking Muse. You get paid via Stripe. We never see passwords, never hold money.</p>
-<div class="card">
-<h2>Option A: On Square? (30 sec)</h2>
-<p class="muted">Auto-import services + hours. No typing.</p>
-<button id="sq" style="background:#006aff;color:#fff;border:0;border-radius:8px;cursor:pointer">Connect with Square</button>
-<p class="muted" id="sqmsg"></p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Book-and-Pay — Book any service and pay via chat</title><meta name="description" content="Muse connector for live availability, fixed quotes, idempotent holds, cancel, and Stripe Link deposits."><style>
+:root{--bg:#0a0c12;--card:#131724;--line:#232a3d;--txt:#f2f4fa;--mut:#9aa3b8;--acc:#3b82f6;--grn:#22c55e}
+*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(1200px 600px at 70% -10%,#1b2b5c 0%,var(--bg) 55%);color:var(--txt)}
+.wrap{max-width:1020px;margin:0 auto;padding:56px 24px 80px}
+.nav{display:flex;align-items:center;gap:12px}.nav img{width:40px;height:40px;border-radius:10px}.pill{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:5px 12px;color:var(--mut)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;margin-top:36px;align-items:center}@media(max-width:820px){.hero{grid-template-columns:1fr}}
+h1{font-size:52px;line-height:1.02;margin:18px 0;letter-spacing:-1px}h1 span{background:linear-gradient(90deg,#60a5fa,#22c55e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);font-size:18px;max-width:560px}
+.cta{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}.btn{padding:13px 20px;border-radius:12px;font-size:16px;border:0;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-p{background:#fff;color:#0a0c12;font-weight:700}.btn-g{background:transparent;color:var(--txt);border:1px solid var(--line)}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:18px;padding:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}@media(max-width:820px){.grid3{grid-template-columns:1fr}}
+.step b{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:1px}.step h3{margin:8px 0}
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}@media(max-width:820px){.cats{grid-template-columns:repeat(2,1fr)}}
+.cat{border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}.cat b{display:block}.cat span{color:var(--mut);font-size:13px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0d1220;color:var(--txt);margin:6px 0;font-size:15px}
+#go{background:var(--acc);color:#fff;font-weight:700;border:0;border-radius:10px;padding:13px;cursor:pointer;width:100%}
+#sq{background:#006aff;color:#fff;border:0;border-radius:10px;padding:13px;cursor:pointer;width:100%}
+.muted{color:var(--mut);font-size:13px}.ok{color:var(--grn)}
+.demo{font-family:ui-monospace,monospace;background:#0d1220;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px;color:#cbd5e1;white-space:pre-wrap}
+footer{margin-top:40px;color:var(--mut);font-size:13px;display:flex;gap:16px;flex-wrap:wrap}
+footer a{color:#cbd5e1}
+</style></head><body><div class="wrap">
+<div class="nav"><img src="/merchant-logo.png" alt="Book-and-Pay" onerror="this.style.display='none'"><b>Book-and-Pay</b><span class="pill">Muse Connector · Review pending</span></div>
+<div class="hero">
+<div>
+<h1>Book any service.<br><span>Pay via chat.</span></h1>
+<p class="sub">Customers ask Muse. Muse checks live availability, quotes a fixed price, holds the slot, and starts a Stripe Link deposit. You approve every write. No app download, no phone tag.</p>
+<div class="cta"><a class="btn btn-p" href="#list">List my business — free beta</a><a class="btn btn-g" href="https://muse.ai" target="_blank" rel="noopener">Try in Muse</a></div>
+<p class="muted">Reviewed connector · Stripe Link payments · Secure Credentials Store · Cancel anytime</p>
 </div>
-<div class="card">
-<h2>Option B: Manual (3 min)</h2>
+<div class="card"><b>Live demo — paste in Muse</b><div class="demo">Build a custom connector from https://muse-book-pay-production.up.railway.app/openapi.json
+Find me a gel manicure tomorrow under $70 and book it</div><p class="muted">Demo token: <b>test12345678</b> (secure prompt only, never chat)</p></div>
+</div>
+<div class="grid3">
+<div class="card step"><b>01 · Discover</b><h3>Real categories</h3><p class="muted">Nails, barber, beauty, cleaning, consult — filter by category, date, price.</p></div>
+<div class="card step"><b>02 · Hold</b><h3>Idempotent booking</h3><p class="muted">Quote → hold with Idempotency-Key. Safe retries, instant cancel.</p></div>
+<div class="card step"><b>03 · Pay</b><h3>Stripe Link deposit</h3><p class="muted">Intent-only in beta. Money goes to merchant. We never hold funds.</p></div>
+</div>
+<div class="card" style="margin-top:16px"><b>Bookable now (seed catalog)</b><div class="cats">
+<div class="cat"><b>Gel Mani</b><span>Luxe Nails · $65</span></div>
+<div class="cat"><b>Spa Pedi</b><span>Luxe Nails · $70</span></div>
+<div class="cat"><b>Skin Fade</b><span>True Fade · $40</span></div>
+<div class="cat"><b>Facial</b><span>Glow Studio · $95</span></div>
+<div class="cat"><b>Cleaning</b><span>Spark Clean · $120</span></div>
+</div></div>
+<div class="card" id="list" style="margin-top:16px"><h2 style="margin:0 0 6px">List my business — free beta</h2><p class="muted">30 seconds. No password, no Gmail access. Payouts via Stripe Connect to YOUR account.</p>
+<button id="sq">Connect with Square (fastest)</button><p class="muted" id="sqmsg"></p>
+<div style="text-align:center;color:var(--mut);margin:8px">— or manual —</div>
 <input id="biz" placeholder="Business name — e.g. North Park Barber">
 <input id="svc" placeholder="Service — e.g. Fade, 30 min, $40">
-<input id="hours" placeholder="Hours — e.g. Tue-Sat 9-6">
+<input id="hours" placeholder="Hours — e.g. Tue–Sat 9–6">
 <input id="stripe" placeholder="Stripe email (for payouts)">
-<button id="go" style="background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer">List my business — free beta</button>
-<p class="muted" id="out"></p>
+<button id="go">List my business</button><p class="muted" id="out"></p>
 </div>
-<p class="muted">What we access: only what you type above. Money via Stripe Connect to YOUR account. Cancel anytime: bob.haddad.33@gmail.com<br>
-<a href="/openapi.json">API spec</a> · <a href="https://celebritypunks.github.io/muse-book-pay/privacy.html">Privacy</a> · <a href="https://celebritypunks.github.io/muse-book-pay/terms.html">Terms</a></p>
+<footer><a href="/openapi.json">API spec</a><a href="/health">Health</a><a href="https://celebritypunks.github.io/muse-book-pay/privacy.html">Privacy</a><a href="https://celebritypunks.github.io/muse-book-pay/terms.html">Terms</a><span>Support: bob.haddad.33@gmail.com</span></footer>
+</div>
 <script>
-document.getElementById('sq').onclick = () => {
-  document.getElementById('sqmsg').textContent = 'Square OAuth coming next — for now use Manual below and we will link Square for you. Email bob.haddad.33@gmail.com with subject Square.';
-};
+document.getElementById('sq').onclick = () => { document.getElementById('sqmsg').textContent = 'Square OAuth next — use manual below for now. Email bob.haddad.33@gmail.com with subject Square.'; };
 document.getElementById('go').onclick = async () => {
   const body = { business: biz.value, service: svc.value, hours: hours.value, stripe_email: stripe.value };
   if (!body.business || !body.service) { out.textContent = 'Add business + service to continue.'; return; }
   const r = await fetch('/v1/merchants', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
   const j = await r.json();
-  out.textContent = r.ok ? `Listed! ID ${j.merchant_id}. Test in Muse: "Book ${body.business} tomorrow via Latch". We will email ${body.stripe_email||'you'} for Stripe.` : ('Error: ' + (j.error||r.status));
+  out.innerHTML = r.ok ? `<span class="ok">Listed! ID ${j.merchant_id}.</span> Test in Muse: "Book ${body.business} tomorrow".` : ('Error: ' + (j.error||r.status));
 };
 </script>
 </body></html>
