@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Book-and-Pay API",
+    "version": "0.1.0",
+    "description": "Universal booking + deposit API for Muse connectors. Agent calls availability -> quote -> book (idempotent) -> deposit via Stripe Link."
+  },
+  "servers": [{ "url": "https://YOUR-HOST/v1" }],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer" }
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/services": {
+      "get": {
+        "operationId": "listServices",
+        "summary": "List bookable services",
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/availability": {
+      "get": {
+        "operationId": "getAvailability",
+        "summary": "Get slots for service + date",
+        "parameters": [
+          { "name": "service_id", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "date", "in": "query", "required": true, "schema": { "type": "string", "example": "2026-09-25" } }
+        ],
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/quotes": {
+      "post": {
+        "operationId": "createQuote",
+        "summary": "Create fixed-price quote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["service_id"],
+                "properties": {
+                  "service_id": { "type": "string" },
+                  "notes": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "operationId": "createBooking",
+        "summary": "Hold a slot (idempotent, requires Idempotency-Key)",
+        "parameters": [
+          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["service_id", "slot"],
+                "properties": {
+                  "service_id": { "type": "string" },
+                  "slot": { "type": "string", "example": "2026-09-25T13:00:00" },
+                  "customer_name": { "type": "string" },
+                  "quote_id": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "created" } }
+      }
+    },
+    "/payments/deposit": {
+      "post": {
+        "operationId": "createDeposit",
+        "summary": "Create deposit intent via Stripe Link",
+        "parameters": [
+          { "name": "Idempotency-Key", "in": "header", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["booking_id", "amount_cents"],
+                "properties": {
+                  "booking_id": { "type": "string" },
+                  "amount_cents": { "type": "integer" },
+                  "currency": { "type": "string", "default": "usd" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "ok" } }
+      }
+    }
+  }
+}
