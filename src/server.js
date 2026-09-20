@@ -21,10 +21,16 @@ function auth(req, res, next) {
   next();
 }
 
-// --- In-memory store (swap for DB) ---
+// --- Catalog: discoverable by category (seed — replace with DB + Square import) ---
 const services = [
-  { id: 'cleaning_std', name: 'Standard Cleaning', duration_min: 120, base_price_cents: 12000, currency: 'usd' },
-  { id: 'consult_30', name: '30-min Consult', duration_min: 30, base_price_cents: 7500, currency: 'usd' }
+  { id: 'cleaning_std', merchant: 'Spark Clean SD', category: 'cleaning', name: 'Standard Cleaning', duration_min: 120, base_price_cents: 12000, currency: 'usd' },
+  { id: 'consult_30', merchant: 'Book-and-Pay Demo', category: 'consult', name: '30-min Consult', duration_min: 30, base_price_cents: 7500, currency: 'usd' },
+  { id: 'nails_gel', merchant: 'Luxe Nails North Park', category: 'nail_salon', name: 'Gel Manicure', duration_min: 60, base_price_cents: 6500, currency: 'usd' },
+  { id: 'nails_pedi', merchant: 'Luxe Nails North Park', category: 'nail_salon', name: 'Spa Pedicure', duration_min: 60, base_price_cents: 7000, currency: 'usd' },
+  { id: 'hair_fade', merchant: 'True Fade Barbers', category: 'barber', name: 'Skin Fade', duration_min: 30, base_price_cents: 4000, currency: 'usd' },
+  { id: 'hair_beard', merchant: 'True Fade Barbers', category: 'barber', name: 'Beard Sculpt', duration_min: 20, base_price_cents: 2500, currency: 'usd' },
+  { id: 'beauty_facial', merchant: 'Glow Studio SD', category: 'beauty_salon', name: 'Signature Facial', duration_min: 50, base_price_cents: 9500, currency: 'usd' },
+  { id: 'beauty_brows', merchant: 'Glow Studio SD', category: 'beauty_salon', name: 'Brow Lamination', duration_min: 40, base_price_cents: 8000, currency: 'usd' }
 ];
 const bookings = new Map(); // idempotencyKey -> booking
 let seq = 1;
@@ -52,7 +58,9 @@ app.get('/openapi.json', (req, res) => res.sendFile(__dirname + '/openapi.json')
 
 // --- Reads (least-privilege safe) ---
 app.get('/v1/services', auth, (req, res) => {
-  res.json({ services });
+  const { category } = req.query;
+  const list = category ? services.filter(s => s.category === category) : services;
+  res.json({ services: list });
 });
 
 app.get('/v1/availability', auth, (req, res) => {
