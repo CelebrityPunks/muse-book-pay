@@ -32,6 +32,21 @@ let seq = 1;
 // Health (no auth, for Meta e2e + uptime)
 app.get('/health', (req, res) => res.json({ ok: true, version: '0.1.0' }));
 
+// Merchant onboard page (no auth — public)
+app.get('/merchant', (req, res) => res.sendFile(__dirname + '/merchant.html'));
+
+// Merchant registry (MVP in-memory — move to Postgres before scale)
+const merchants = [];
+app.post('/v1/merchants', (req, res) => {
+  const { business, service, hours, stripe_email } = req.body || {};
+  if (!business || !service) return res.status(400).json({ error: 'business and service required' });
+  const m = { merchant_id: `m_${Date.now().toString(36)}`, business, service, hours: hours || '', stripe_email: stripe_email || '', created_at: new Date().toISOString() };
+  merchants.push(m);
+  console.log('new merchant', m.merchant_id, business);
+  res.status(201).json(m);
+});
+app.get('/v1/merchants', (req, res) => res.json({ merchants }));
+
 // OpenAPI doc
 app.get('/openapi.json', (req, res) => res.sendFile(__dirname + '/openapi.json'));
 
