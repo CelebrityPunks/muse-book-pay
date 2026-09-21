@@ -56,6 +56,9 @@ app.get('/v1/merchants', (req, res) => res.json({ merchants }));
 // OpenAPI doc
 app.get('/openapi.json', (req, res) => res.sendFile(__dirname + '/openapi.json'));
 
+// eSIM mock module (feat/esim-connector) — Book-Pay /v1/* untouched
+try { require('./esim/mock').router(app, auth); } catch (e) { console.log('esim mock not loaded', e.message); }
+
 // --- Reads (least-privilege safe) ---
 app.get('/v1/services', auth, (req, res) => {
   const { category } = req.query;
